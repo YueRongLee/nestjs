@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  name: String!
+  messages: [Message!]
+}
+
+type Message {
+  id: ID!
+  description: String
+  userId: ID!
+  user: User
+}
+
+type Query {
+  messages: [Message!]!
+  message(id: String!): Message!
+  users: [User!]!
+  user(id: String!): User!
+}
+
+type Mutation {
+  deleteMessage(id: String!): String!
+  createMessageFromUser(userId: String!, description: String!): Message!
+  createUser(name: String!): User!
+}
