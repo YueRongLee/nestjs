@@ -11,7 +11,11 @@ export class User {
 
   @Field({ nullable: false })
   @Column()
-  name: string
+  username: string
+
+  @Field({ nullable: false })
+  @Column()
+  password: string
 
   @Field(() => [Message], { nullable: true } )
   messages?: [Message]

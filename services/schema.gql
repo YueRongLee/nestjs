@@ -4,7 +4,8 @@
 
 type User {
   id: ID!
-  name: String!
+  username: String!
+  password: String!
   messages: [Message!]
 }
 
@@ -19,11 +20,11 @@ type Query {
   messages: [Message!]!
   message(id: String!): Message!
   users: [User!]!
-  user(id: String!): User!
+  user(username: String, id: String): User!
 }
 
 type Mutation {
   deleteMessage(id: String!): String!
   createMessageFromUser(userId: String!, description: String!): Message!
-  createUser(name: String!): User!
+  createUser(password: String!, username: String!): User!
 }

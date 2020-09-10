@@ -17,8 +17,13 @@ export class UserService {
     return results;
   }
   
-  async findOneUser(id: string): Promise<User> {
-    const result: User = await this.userRepository.findOne(id);
+  async findOneUser(id?: string, criteria?: object): Promise<User> {
+    let result: User;
+    if(id) {
+      result = await this.userRepository.findOne(id);
+    } else {
+      result = await this.userRepository.findOne(criteria);
+    }
 
     if(!result) {
       throw new Error('User not found!');
@@ -27,8 +32,8 @@ export class UserService {
     return result;
   }
 
-  async createUser(name: string): Promise<User> {
-    const result: User = await this.userRepository.save({ name });
+  async createUser(username: string, password: string): Promise<User> {
+    const result: User = await this.userRepository.save({ username, password });
 
     return result;
   }

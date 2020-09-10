@@ -25,17 +25,23 @@ export class UserResolver {
     return this.userService.findUsers();
   }
 
+  // * 接收使用者輸入 的參數若可為空，須在 @Args()裡面加上 nullable: true
+  // * 直接在參數上 ? 無效， ex: username?: string
   @Query(() => User)
-  user(@Args('id') id: string): Promise<User> {
-    return this.userService.findOneUser(id);
+  user(
+    @Args('id', { nullable: true }) id: string,
+    @Args('username', { nullable: true }) username: string,
+  ): Promise<User> {
+    return this.userService.findOneUser(id, { username });
   }
 
   @Mutation(() => User)
-  createUser(@Args('name') name: string): Promise<User> {
-    return this.userService.createUser(name);
+  createUser(@Args('username') username: string, @Args('password') password: string): Promise<User> {
+    return this.userService.createUser(username, password);
   }
 
   // Array<Message>, [Message], Message[] 有何不同或限制
+  // * 網路上說都可以使用，但可能有些 tslint 會限制寫法，所以報錯
   @ResolveField(() => [Message])
   messages(@Parent() user: User): Promise<Message[]> {
     const messages = this.messageService.findMessages({ userId: user.id });
