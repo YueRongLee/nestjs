@@ -31,7 +31,7 @@
         </tr>
         <tr v-for="user in users" :key="user.id">
           <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
+          <td>{{ user.username }}</td>
           <template v-if="user.messages.length === messageMaxLength">
             <td v-for="m in user.messages" :key="m.id">
               {{ m.id }} - {{ m.description }}
@@ -81,7 +81,8 @@ export default {
             userId
             user {
               id
-              name
+              username
+              password
             }
           }
         }
@@ -104,7 +105,8 @@ export default {
             userId
             user {
               id
-              name
+              username
+              password
             }
           }
         }
@@ -115,7 +117,8 @@ export default {
         query {
           users {
             id
-            name
+            username
+            password
             messages {
               id
               description
