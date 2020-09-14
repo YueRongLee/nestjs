@@ -17,15 +17,16 @@ export class UserService {
     return results;
   }
   
-  async findOneUser(id?: string, criteria?: object): Promise<User> {
+  async findOneUser(id?: string, criteria?: object, login?: boolean): Promise<User> {
     let result: User;
+
     if(id) {
       result = await this.userRepository.findOne(id);
     } else {
       result = await this.userRepository.findOne(criteria);
     }
 
-    if(!result) {
+    if(!result && !login) {
       throw new Error('User not found!');
     }
 

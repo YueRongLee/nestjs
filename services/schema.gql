@@ -21,10 +21,12 @@ type Query {
   message(id: String!): Message!
   users: [User!]!
   user(username: String, id: String): User!
+  me: User!
 }
 
 type Mutation {
   deleteMessage(id: String!): String!
   createMessageFromUser(userId: String!, description: String!): Message!
   createUser(password: String!, username: String!): User!
+  login(password: String!, username: String!): String!
 }

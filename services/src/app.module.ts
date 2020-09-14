@@ -32,7 +32,8 @@ import { AuthModule } from './auth/auth.module';
       autoSchemaFile: 'schema.gql',
       resolverValidationOptions: {
         requireResolversForResolveType: false
-      }
+      },
+      context: ({ req }) => ({ headers: req.headers })
     }),
     MessageModule,
     UserModule,
