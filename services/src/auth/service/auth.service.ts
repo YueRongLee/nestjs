@@ -7,7 +7,6 @@ export class AuthService {
   constructor(private readonly userService: UserService) {}
 
   async createToken(username: string, password: string): Promise<any> {
-    console.log(username, password)
     return jwt.sign({ username, password }, 'secret');
   }
 
