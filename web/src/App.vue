@@ -1,28 +1,59 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/soldier.jpg" height="200px" width="150px">
-    <HelloWorld msg="Welcome to This App"/>
+    <div id="nav" class="row">
+      <div class="offset-9 col-3">
+        <button v-if="!isLoginPage" class="btn btn-warning" @click="logout">Logout</button>
+      </div>
+    </div>
+    <router-view class="main-content" />
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { onLogout } from "./vue-apollo"
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      isLoginPage: false
+    }
+  },
+  watch: {
+    '$route'(data) {
+      if(data.name === 'Login') {
+        this.isLoginPage = true;
+      } else {
+        this.isLoginPage = false;
+      }
+    }
+  },
+  methods: {
+    async logout() {
+      const apolloProvider = this.$apollo.provider.clients.defaultClient
+      onLogout(apolloProvider)
+      this.$router.push('/login')
+    },
+  },
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  background: linear-gradient(rgb(249, 255, 164), #aae0ff, #fff3f3);
+}
+
+#nav {
+  padding: 30px;
+  height:40px;
+}
+
+#nav a {
+  font-weight: bold;
   color: #2c3e50;
-  background: linear-gradient(rgb(215, 245, 240), #d0eeff, #f8f8f8);
+}
+.main-content {
+  flex: 1;
+  min-height: 90vh;
 }
 </style>

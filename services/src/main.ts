@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // * 全域身份驗證
-  app.useGlobalGuards(new AuthGuard());
+  // app.useGlobalGuards(new AuthGuard());
 
   const configService = app.get(ConfigService);
   await app.listen(configService.get<string>('APP_PORT'));

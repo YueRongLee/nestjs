@@ -12,6 +12,7 @@ import * as jwt from 'jsonwebtoken';
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context).getContext();
+    // * 檢查是否有token
     if (!ctx.headers.authorization) {
       return false;
     }

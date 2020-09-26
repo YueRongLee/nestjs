@@ -6,12 +6,15 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
+import { UseGuards } from "@nestjs/common";
 
 import { User } from '../model/user.model';
 import { UserService } from '../service/user.service';
 
 import { Message } from 'src/message/model/message.model';
 import { MessageService } from 'src/message/service/message.service';
+
+import { AuthGuard } from "../../auth/guard/auth.guard";
 
 @Resolver(() => User)
 export class UserResolver {
@@ -21,6 +24,7 @@ export class UserResolver {
   ) {}
 
   @Query(() => [User])
+  @UseGuards(new AuthGuard())
   users(): Promise<User[]> {
     return this.userService.findUsers();
   }
@@ -28,6 +32,7 @@ export class UserResolver {
   // * 接收使用者輸入 的參數若可為空，須在 @Args()裡面加上 nullable: true
   // * 直接在參數上 ? 無效， ex: username?: string
   @Query(() => User)
+  @UseGuards(new AuthGuard())
   user(
     @Args('id', { nullable: true }) id: string,
     @Args('username', { nullable: true }) username: string,
@@ -36,6 +41,7 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
+  @UseGuards(new AuthGuard())
   createUser(@Args('username') username: string, @Args('password') password: string): Promise<User> {
     return this.userService.createUser(username, password);
   }

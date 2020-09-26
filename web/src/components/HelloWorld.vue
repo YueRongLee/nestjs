@@ -61,6 +61,7 @@
 
 <script>
 import gql from "graphql-tag"
+
 export default {
   name: "HelloWorld",
   props: {
@@ -127,7 +128,6 @@ export default {
         }
       `,
       result({ data }) {
-        console.log(data)
         data.users.forEach((user) => {
           if (user.messages.length > this.messageMaxLength) {
             this.messageMaxLength = user.messages.length
