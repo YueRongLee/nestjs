@@ -10,12 +10,12 @@ export class AuthService {
     return jwt.sign({ username, password }, 'secret');
   }
 
-  async ifUserExist(username: string, password: string): Promise<any> {
-    const user = await this.userService.findOneUser(undefined, { username, password }, true);
+  // async ifUserExist(username: string, password: string): Promise<any> {
+  //   const user = await this.userService.findOneUser(undefined, { username, password }, true);
 
-    if(user && user.password === password) {
-      return user;
-    }
-    return null;
-  }
+  //   if(user && user.password === password) {
+  //     return user;
+  //   }
+  //   return null;
+  // }
 }

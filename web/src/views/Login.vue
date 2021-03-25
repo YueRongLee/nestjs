@@ -9,9 +9,6 @@
   </div>
 </template>
 <script>
-import gql from "graphql-tag"
-import { onLogin } from "../vue-apollo"
-
 export default {
   data() {
     return {
@@ -21,24 +18,7 @@ export default {
   },
   methods: {
     async submit() {
-      const result = await this.$apollo.mutate({
-        mutation: gql`
-          mutation login($username: String!, $password: String!) {
-            login(username: $username, password: $password)
-          }
-        `,
-        variables: {
-          username: this.username,
-          password: this.password,
-        },
-      })
-
-      if (result) {
-        const apolloProvider = this.$apollo.provider.clients.defaultClient
-        onLogin(apolloProvider, result.data.login)
-
-        this.$router.push("/home-page")
-      }
+      this.$router.push("/home-page")
     },
   },
 }

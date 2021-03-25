@@ -1,23 +1,28 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 import { User } from '../../user/model/user.model';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-
+@Schema()
 @ObjectType()
-@Entity()
-export class Message {
+export class Message extends Document  {
+  // Prop --> 定義資料庫的欄位
+  // Field --> 定義回傳資料的欄位
+  
   @Field(() => ID)
-  @PrimaryGeneratedColumn()
   id: string
 
-  @Field({ nullable: true })
-  @Column('text')
+  @Prop()
+  @Field()
   description: string
 
-  @Field(() => ID)
-  @Column()
+  @Prop()
+  @Field()
   userId: string
 
-  @Field( () => User, { nullable: true })
+  @Prop()
+  @Field(() => User)
   user?: User
 }
+
+export const MessageSchema = SchemaFactory.createForClass(Message);

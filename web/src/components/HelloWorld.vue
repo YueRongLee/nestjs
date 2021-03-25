@@ -73,46 +73,6 @@ export default {
     }
   },
   apollo: {
-    message: {
-      query: gql`
-        query message($id: String!) {
-          message(id: $id) {
-            id
-            description
-            userId
-            user {
-              id
-              username
-              password
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: "3",
-        }
-      },
-      result({ data }) {
-        console.log(data)
-      },
-    },
-    messages: {
-      query: gql`
-        query {
-          messages {
-            id
-            description
-            userId
-            user {
-              id
-              username
-              password
-            }
-          }
-        }
-      `,
-    },
     users: {
       query: gql`
         query {

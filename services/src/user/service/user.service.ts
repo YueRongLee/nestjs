@@ -1,41 +1,41 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 import { User } from "../model/user.model";
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>
   ) {}
 
   async findUsers(criteria? : object): Promise<User[]> {
-    const results: User[] = await this.userRepository.find(criteria);
-
+    const results = await this.userModel.find(criteria).exec();
+    console.log(results)
     return results;
   }
   
-  async findOneUser(id?: string, criteria?: object, login?: boolean): Promise<User> {
-    let result: User;
+  // async findOneUser(id?: string, criteria?: object, login?: boolean): Promise<User> {
+  //   let result: User;
 
-    if(id) {
-      result = await this.userRepository.findOne(id);
-    } else {
-      result = await this.userRepository.findOne(criteria);
-    }
+  //   if(id) {
+  //     result = await this.userRepository.findOne(id);
+  //   } else {
+  //     result = await this.userRepository.findOne(criteria);
+  //   }
 
-    if(!result && !login) {
-      throw new Error('User not found!');
-    }
+  //   if(!result && !login) {
+  //     throw new Error('User not found!');
+  //   }
 
-    return result;
-  }
+  //   return result;
+  // }
 
-  async createUser(username: string, password: string): Promise<User> {
-    const result: User = await this.userRepository.save({ username, password });
+  // async createUser(username: string, password: string): Promise<User> {
+  //   const result: User = await this.userRepository.save({ username, password });
 
-    return result;
-  }
+  //   return result;
+  // }
 }

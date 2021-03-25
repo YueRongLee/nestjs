@@ -24,45 +24,44 @@ export class MessageResolver {
   ) {};
 
   @Query(() => [Message])
-  @UseGuards(new AuthGuard())
   messages(): Promise<Message[]> {
     return this.messageService.findMessages();
   }
 
-  @Query(() => Message)
-  @UseGuards(new AuthGuard())
-  message(@Args('id') id: string): Promise<Message> {
-    return this.messageService.findOneMessage(id);
-  }
+  // @Query(() => Message)
+  // @UseGuards(new AuthGuard())
+  // message(@Args('id') id: string): Promise<Message> {
+  //   return this.messageService.findOneMessage(id);
+  // }
 
-  @Mutation(() => String)
-  @UseGuards(new AuthGuard())
-  deleteMessage(@Args('id') id: string): Promise<string> {
-    return this.messageService.deleteMessage(id);
-  }
+  // @Mutation(() => String)
+  // @UseGuards(new AuthGuard())
+  // deleteMessage(@Args('id') id: string): Promise<string> {
+  //   return this.messageService.deleteMessage(id);
+  // }
 
-  @Mutation(() => Message)
-  @UseGuards(new AuthGuard())
-  createMessageFromUser(
-    @Args('description') description: string,
-    @Args('userId') userId: string,
-  ): Promise<Message> {
-    // 檢查 user 存不存在
-    const user: Promise<User> = this.userService.findOneUser(userId);
+  // @Mutation(() => Message)
+  // @UseGuards(new AuthGuard())
+  // createMessageFromUser(
+  //   @Args('description') description: string,
+  //   @Args('userId') userId: string,
+  // ): Promise<Message> {
+  //   // 檢查 user 存不存在
+  //   const user: Promise<User> = this.userService.findOneUser(userId);
     
-    if(!user) {
-      throw new Error('User not found!');
-    }
+  //   if(!user) {
+  //     throw new Error('User not found!');
+  //   }
 
-    const message = this.messageService.createMessage({ description, userId });
+  //   const message = this.messageService.createMessage({ description, userId });
 
-    return message;
-  }
+  //   return message;
+  // }
 
-  @ResolveField(() => User)
-  user(@Parent() message: Message): Promise<User> {
-    const user = this.userService.findOneUser(message.userId);
+  // @ResolveField(() => User)
+  // user(@Parent() message: Message): Promise<User> {
+  //   const user = this.userService.findOneUser(message.userId);
 
-    return user;
-  }
+  //   return user;
+  // }
 }

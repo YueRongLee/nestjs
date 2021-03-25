@@ -1,28 +1,32 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { MessageModule } from './message/message.module';
 import { UserModule } from './user/user.module';
-import { Message } from './message/model/message.model';
-import { User } from './user/model/user.model';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        database: configService.get<string>('DB_NAME'),
-        username: configService.get<string>('DB_ROOT_USER'),
-        password: configService.get<string>('DB_ROOT_PASS'),
-        entities: [Message, User],
-        synchronize: true
-      }),
-      inject: [ConfigService]
+    MongooseModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => {
+        const auth = `${configService.get<string>(
+          'DB_ROOT_USER',
+        )}:${configService.get<string>('DB_ROOT_PASS')}`;
+        const host = `${configService.get<string>(
+          'DB_HOST',
+        )}:${configService.get<string>('DB_PORT')}`;
+        const db = configService.get<string>('DB_NAME');
+        const uri = `mongodb://${auth}@${host}/${db}?authSource=admin`;
+
+        return {
+          uri,
+          // useNewUrlParser: true,
+          // useUnifiedTopology: true,
+          // useFindAndModify: false,
+        };
+      },
+      inject: [ConfigService],
     }),
     ConfigModule.forRoot({
       isGlobal: true,
@@ -36,8 +40,7 @@ import { AuthModule } from './auth/auth.module';
       context: ({ req }) => ({ headers: req.headers })
     }),
     MessageModule,
-    UserModule,
-    AuthModule
+    UserModule
   ],
 })
 export class AppModule {}

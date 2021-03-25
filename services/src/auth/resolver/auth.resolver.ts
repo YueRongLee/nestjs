@@ -9,19 +9,19 @@ import { AuthGuard } from "../guard/auth.guard";
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
   
-  @Query(() => User)
-  @UseGuards(new AuthGuard())
-  me(@Context('user')user: User) {
-    return user;
-  }
+  // @Query(() => User)
+  // @UseGuards(new AuthGuard())
+  // me(@Context('user')user: User) {
+  //   return user;
+  // }
 
-  @Mutation(() => String)
-  async login(@Args('username') username: string, @Args('password') password: string): Promise<any> {
-    const user = await this.authService.ifUserExist(username, password);
+  // @Mutation(() => String)
+  // async login(@Args('username') username: string, @Args('password') password: string): Promise<any> {
+  //   const user = await this.authService.ifUserExist(username, password);
 
-    if(!user) {
-      throw new Error('User not found!');
-    }
-    return this.authService.createToken(username, password);
-  }
+  //   if(!user) {
+  //     throw new Error('User not found!');
+  //   }
+  //   return this.authService.createToken(username, password);
+  // }
 }
