@@ -2,7 +2,7 @@
   <div class="home-main">
     <div style="height:20vh" class="d-flex home-main-bar">
       <div class="text-center home-main-title">
-        發燒精品
+        發燒品項
       </div>
       <img src="../assets/paidashin.jpeg" class="home-main-avatar-img" />
     </div>
@@ -19,6 +19,9 @@ export default {
 </script>
 <style lang="scss">
 .home-main {
+  flex:1;
+  display:flex;
+  flex-direction: column;
   .home-main-bar {
     background: linear-gradient(#d2e3ff, rgb(139, 180, 255));
     position: relative;

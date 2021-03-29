@@ -60,5 +60,10 @@ export default {
 #app {
   display: flex;
   overflow: hidden;
+  #main-content {
+    .v-main__wrap {
+      display: flex;
+    }
+  }
 }
 </style>
