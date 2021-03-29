@@ -1,14 +1,17 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import PersonalInfo from "../views/PersonalInfo"
+import HomeMain from "../views/HomeMain"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/personal-info",
-    name: "PersonalInfo",
-    component: PersonalInfo,
+    path: "/home-main",
+    name: "HomeMain",
+    component: HomeMain,
+    meta: {
+      title: '主頁'
+    }
   },
   // {
   //   path: "/about",
@@ -19,7 +22,7 @@ const routes = [
   //   component: () =>
   //     import(/* webpackChunkName: "about" */ "../views/About.vue"),
   // },
-  { path: "*", redirect: "/personal-info" },
+  { path: "*", redirect: "/home-main" },
 ]
 
 const router = new VueRouter({

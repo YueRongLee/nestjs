@@ -5,7 +5,9 @@
         @click="drawer = !drawer"
         style="color: white"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title style="color: white">Application</v-toolbar-title>
+      <v-toolbar-title style="color: white">{{
+        $route.meta.title
+      }}</v-toolbar-title>
       <v-spacer />
       <v-btn icon style="color: white">
         <v-icon>{{ icons.mdiAccount }}</v-icon>
@@ -34,8 +36,8 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main class="grey lighten-5">
-        <router-view />
+    <v-main id="main-content" class="grey lighten-5" >
+      <router-view />
     </v-main>
   </v-app>
 </template>
@@ -56,9 +58,7 @@ export default {
 
 <style lang="scss">
 #app {
-  /* display: flex;
-  flex-direction: column;
-  text-align: center;
-  background: linear-gradient(rgb(249, 255, 164), #aae0ff, #fff3f3); */
+  display: flex;
+  overflow: hidden;
 }
 </style>
