@@ -1,5 +1,15 @@
 # nestjs
 
+## Step 0
+- copy example.env and rename to .env file
+
+```
+add db port
+add username, password
+
+need mapping to docker db setting
+```
+
 ## Step 1
 - start mongodb in docker
 
@@ -9,10 +19,10 @@ docker-compose up  (start mongo in dokcer)
 ```
 
 ## step 2
-- start service
+- start services
 
 ```
-cd service
+cd services
 yarn  (install dependencies)
 yarn start:dev
 ```
