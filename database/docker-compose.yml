@@ -4,8 +4,8 @@ services:
   mongodb:
     image: mongo:4.2
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: test
+      MONGO_INITDB_ROOT_USERNAME: jason
+      MONGO_INITDB_ROOT_PASSWORD: jasongood
     ports:
       - 27017:27017
     volumes:
